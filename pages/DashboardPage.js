@@ -2,6 +2,7 @@ export class DashboardPage{
 
     //page value will get from test
     constructor (page){
+        this.page = page;
         this.productsDetails = page.locator(".card-body")// productsDetails will save all the products information like Product Title, View Btn, Add to Card Btn
         this.ProductsTitles = page.locator(".card-body b")////Display all Product titles from Home Page
         this.cart= page.locator("[routerlink$='/dashboard/cart']")// Cart btn

@@ -1,6 +1,7 @@
 import {expect, test} from "@playwright/test"
-import { LoginPage } from "../pages/LoginPage";
-import {DashboardPage} from "../pages/DashboardPage";
+//import { LoginPage } from "../pages/LoginPage";
+//import {DashboardPage} from "../pages/DashboardPage";
+import {POManager} from "../pages/POManager";
 
 // ../pages/LoginPage here we use .. because LoginPage outside of LoginPage.spec.js
 test("TC to Add the Product to Cart and place the Order", async({page})=>{
@@ -8,12 +9,27 @@ test("TC to Add the Product to Cart and place the Order", async({page})=>{
     const productName= "ZARA COAT 3"
     const UserName = "vvbulbule@gmail.com"
     const Password= "V12bulbule@"
-    const loginPage = new LoginPage(page);
-    await  loginPage.goTo()
+   /* In Below Line i.e  const loginPage = new LoginPage(page) we Created the object of LoginPage 
+   as we need to access the methods but if we have to get the methods from multiple page in our Test case  we have to create object of every page
+     so to avoid this we can create One POManger File with all the Objects of all Classes of our Application 
+     so just import that POManger file  & call the methods of all The PO Classes by Creating Object of single file POManager In Test Case*/
+    //const loginPage = new LoginPage(page) ;
+    //await  loginPage.goTo()
+    //await loginPage.ValidLogin(UserName,Password)
+
+    const poManger = new POManager(page)
+    const loginPage = poManger.getLoginPage();
+    await loginPage.goTo()
     await loginPage.ValidLogin(UserName,Password)
-    const dashboard = new DashboardPage(page);
-    await dashboard.searchProductAndAddToCart(productName)
-    await dashboard.navigateToCartPage()
+
+    /* In Below Line we Created the object of DashboardPage as we need to access the methods 
+    if we have to get the methods from multiple page we have to create object of every page
+     so to avoid this we can create all the Ojects of all Class of our Application in POManager Class File 
+     so just import that POManger file to call the methods of all The PO Classes*/
+    //const dashboardPage = new DashboardPage(page);
+    const dashboardPage = poManger.getDashboardPage()
+    await dashboardPage.searchProductAndAddToCart(productName)
+    await dashboardPage.navigateToCartPage()
 
    
 

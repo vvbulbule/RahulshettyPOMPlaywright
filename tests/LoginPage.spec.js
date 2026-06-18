@@ -1,5 +1,6 @@
 import {expect, test} from "@playwright/test"
-import { LoginPage } from "../pages/LoginPage";
+//import { LoginPage } from "../pages/LoginPage";
+import {POManager} from "../pages/POManager";
 
 // ../pages/LoginPage here we use .. because LoginPage outside of LoginPage.spec.js
 test("TC to Add the Product to Cart and place the Order", async({page})=>{
@@ -7,9 +8,17 @@ test("TC to Add the Product to Cart and place the Order", async({page})=>{
     const productName= "ZARA COAT 3"
     const UserName = "vvbulbule@gmail.com"
     const Password= "V12bulbule@"
-    const loginPage = new LoginPage(page);
-    loginPage.goTo()
-    loginPage.ValidLogin(UserName,Password)
+
+    /* In Below Line i.e  const loginPage = new LoginPage(page) we Created the object of LoginPage 
+   as we need to access the methods but if we have to get the methods from multiple page in our Test case  we have to create object of every page
+     so to avoid this we can create One POManger File with all the Objects of all Classes of our Application 
+     so just import that POManger file  & call the methods of all The PO Classes by Creating Object of single file POManager In Test Case*/
+    //const loginPage = new LoginPage(page) ;
+
+    const poManger = new POManager(page)
+    const loginPage = poManger.getLoginPage();
+    await loginPage.goTo()
+    await loginPage.ValidLogin(UserName,Password)
 
     // Now to get the all elemets we have to wait until at least 1 element is visible then get all other elemets
         const ProductsTitles = page.locator(".card-body b")
