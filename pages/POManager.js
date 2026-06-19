@@ -1,5 +1,6 @@
 import {LoginPage} from "./LoginPage"
 import {DashboardPage} from "./DashboardPage"
+import {CartPage} from "./CartPage"
 
 
 
@@ -12,6 +13,7 @@ export class POManager{
         this.page = page;
         this.loginPage = new LoginPage(page);
         this.dashboardPage = new DashboardPage(page);
+        this.cartPage = new CartPage(page);
 
     }
 
@@ -21,6 +23,11 @@ getLoginPage(){
 
 getDashboardPage(){
     return this.dashboardPage;
+}
+
+
+getCartPage(){
+    return this.cartPage;
 }
     
 }
