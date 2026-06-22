@@ -25,7 +25,7 @@ test("TC to Add the Product to Cart and place the Order", async({page})=>{
     await dashboardPage.navigateToCartPage()
     const cartPage = poManger.getCartPage()
     await cartPage.VerifyProductIsDisplayed(productName)
-    await cartPage.getPaymentPage()
+    await cartPage.navigateToPaymentPage()
 
 
     // On the Payment Page

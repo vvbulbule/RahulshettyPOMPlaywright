@@ -1,6 +1,8 @@
 import {LoginPage} from "./LoginPage"
 import {DashboardPage} from "./DashboardPage"
 import {CartPage} from "./CartPage"
+import { PaymentPage } from "./PaymentPage";
+import { OrderHistoryPage } from "./OrderHistoryPage";
 
 
 
@@ -14,6 +16,8 @@ export class POManager{
         this.loginPage = new LoginPage(page);
         this.dashboardPage = new DashboardPage(page);
         this.cartPage = new CartPage(page);
+        this.paymentPage= new PaymentPage(page)
+        this.orderHistoryPage = new OrderHistoryPage(page)
 
     }
 
@@ -28,6 +32,16 @@ getDashboardPage(){
 
 getCartPage(){
     return this.cartPage;
+}
+
+getPaymentPage(){
+    return this.paymentPage;
+
+}
+
+getOrderHistoryPage(){
+    return this.orderHistoryPage;
+
 }
     
 }

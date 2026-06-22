@@ -6,6 +6,7 @@ export class DashboardPage{
         this.productsDetails = page.locator(".card-body")// productsDetails will save all the products information like Product Title, View Btn, Add to Card Btn
         this.ProductsTitles = page.locator(".card-body b")////Display all Product titles from Home Page
         this.cart= page.locator("[routerlink$='/dashboard/cart']")// Cart btn
+        this.orders = page.locator("[routerlink='/dashboard/myorders']")
     }
 
     // productName comes from testcase
@@ -44,6 +45,11 @@ export class DashboardPage{
     async navigateToCartPage(){
         // click on Cart button top right corner to open the cart Page
         await this.cart.click()
+    }
+
+      async navigateToOrdersPage(){
+        // click on Orders  button top right corner to open the orders Page
+        await this.orders.nth(1).click()
     }
     
 

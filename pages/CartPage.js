@@ -27,7 +27,7 @@ export class CartPage{
     return  this.page.locator("h3:has-text('"+productName+"')");
 }
 
-    async getPaymentPage(){
+    async navigateToPaymentPage(){
         await this.CheckouBtn.click()
     }
         
