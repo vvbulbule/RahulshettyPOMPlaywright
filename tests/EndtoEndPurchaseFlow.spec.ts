@@ -1,5 +1,7 @@
 import {expect, test} from "@playwright/test"
 
+/* Program : This is Seperaete End to End TC for Placing Order ... Just for Reference not the POM is Used in this Program */
+
 test("TC to Add the Product to Cart and place the Order", async({page})=>
     {
         await page.goto("https://rahulshettyacademy.com/client/#/auth/login")

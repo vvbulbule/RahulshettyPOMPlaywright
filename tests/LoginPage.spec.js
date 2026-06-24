@@ -3,6 +3,10 @@ import {expect, test} from "@playwright/test"
 import {POManager} from "../pages/POManager";
 
 // ../pages/LoginPage here we use .. because LoginPage outside of LoginPage.spec.js
+
+/* 
+Program : This Program just cover the POM till LoginPage and Complete Flow till Placing Order and verify the Order ID in OrdersHistory Page is Covered Under  i.e. OrderHistoryPage.spec.js */
+
 test("TC to Add the Product to Cart and place the Order", async({page})=>{
 
     const productName= "ZARA COAT 3"

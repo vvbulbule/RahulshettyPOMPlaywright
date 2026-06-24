@@ -1,21 +1,20 @@
 import {expect, test} from "@playwright/test"
 import {POManager} from "../pages/POManager";
+//When we Write Below line Node.js (or Playwright's build system) automatically reads the JSON file and converts it into a JavaScript object. 
 
+import testData from "../TestData/OrderHistoryPageTestData.json";
+
+/* Program : Complete Flow till the placing Order and verify the Order ID in OrdersHistory Page is Covered Under This Class  i.e. OrderHistoryPage.spec.js */
 
 test("TC to Add the Product to Cart and place the Order", async({page})=>{
 
+    /* Read the Below Test data from json file "OrderHistoryPageTestData.json"
     const productName= "ZARA COAT 3"
     const UserName = "vvbulbule@gmail.com"
-    const Password= "V12bulbule@"
-    
-   /* In Below Line i.e  const loginPage = new LoginPage(page) we Created the object of LoginPage 
-   as we need to access the methods but if we have to get the methods from multiple page in our Test case  we have to create object of every page
-     so to avoid this we can create One POManger File with all the Objects of all Classes of our Application 
-     so just import that POManger file  & call the methods of all The PO Classes by Creating Object of single file POManager In Test Case*/
-    //const loginPage = new LoginPage(page) ;
-    //await  loginPage.goTo()
-    //await loginPage.ValidLogin(UserName,Password)
-
+    const Password= "V12bulbule@" */
+    const productName = testData.productName;
+    const UserName = testData.UserName;
+    const Password = testData.Password;
     const poManger = new POManager(page)
     const loginPage = poManger.getLoginPage();
     await loginPage.goTo()

@@ -1,6 +1,8 @@
 import {expect, test} from "@playwright/test"
 import {POManager} from "../pages/POManager";
 
+/* 
+Program : This Program just cover the POM till Payment Page page and Complete Flow till Placing Order and verify the Order ID in OrdersHistory Page is Covered Under  i.e. OrderHistoryPage.spec.js */
 
 test("TC to Add the Product to Cart and place the Order", async({page})=>{
 
