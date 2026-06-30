@@ -13,7 +13,12 @@ test(`TC to Add the Product to Cart ${data.productName} and place the Order`, as
     /* Read the Below Test data from json file "OrderHistoryPageTestData.json"
     const productName= "ZARA COAT 3"
     const UserName = "vvbulbule@gmail.com"
-    const Password= "V12bulbule@" */
+    const Password= "V12bulbule@"
+    To Read the Test data using Json we don't want for loop 
+    const productName = testData.productName; 
+    const UserName = testData.userName; 
+    const Password = testData.password; 
+    */
     const productName = data.productName;
     const UserName = data.UserName;
     const Password = data.Password;
