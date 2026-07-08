@@ -26,7 +26,8 @@ export default defineConfig({
     browserName:'firefox',
     headless: true,
     screenshot :'on',
-    trace : 'retain-on-failure'//off,on,retain-on-failure
+    trace : 'retain-on-failure',//off,on,retain-on-failure
+    
             }
     },
 
@@ -36,9 +37,26 @@ export default defineConfig({
     browserName:'chromium',
     headless: false,
     screenshot :'on',
-    trace : 'retain-on-failure'//off,on,retain-on-failure
+    trace : 'retain-on-failure',//off,on,retain-on-failure
+    //viewport:{width:720,height:720}// Browser Size to Open for Execution
+    //...devices['Galaxy Note 3']
+    permissions:['geolocation'] // To Allow location when website is Open
             }
-    }
+    },
+
+     {
+        name : "Safari",
+        use: {
+    browserName:'webkit',
+    headless: false,
+    screenshot :'on',
+    trace : 'retain-on-failure',//off,on,retain-on-failure
+    //...devices['iPhone 11 Pro'],
+    //ignoreHTTPSErrors: true // for Non Http Websites
+    
+
+            }
+    },
     
  ]
   
