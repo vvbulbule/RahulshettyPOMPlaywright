@@ -6,6 +6,7 @@ import { chromium, defineConfig, devices } from '@playwright/test';
 export default defineConfig({
   //const  config=({
   testDir: './tests',
+  retries: 1,
   //by default timeout is of 30 sec 
   // only if we want to overwrite the default timeout we need to defined it otherwise no need
   // Timeout of 40 sec to wait for perticular element
@@ -36,10 +37,11 @@ export default defineConfig({
         use: {
     browserName:'chromium',
     headless: false,
-    screenshot :'on',
+    screenshot :'on',//off,on,retain-on-failure
+    video:'retain-on-failure',//off,on,retain-on-failure
     trace : 'retain-on-failure',//off,on,retain-on-failure
     //viewport:{width:720,height:720}// Browser Size to Open for Execution
-    //...devices['Galaxy Note 3']
+    //...devices['Galaxy Note 3'],
     permissions:['geolocation'] // To Allow location when website is Open
             }
     },
@@ -49,7 +51,7 @@ export default defineConfig({
         use: {
     browserName:'webkit',
     headless: false,
-    screenshot :'on',
+    screenshot :'on',//off,on,retain-on-failure
     trace : 'retain-on-failure',//off,on,retain-on-failure
     //...devices['iPhone 11 Pro'],
     //ignoreHTTPSErrors: true // for Non Http Websites
