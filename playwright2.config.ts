@@ -6,7 +6,7 @@ import { chromium, defineConfig, devices } from '@playwright/test';
 export default defineConfig({
   //const  config=({
   testDir: './tests',
-  retries: 1,
+  //retries: 1,
   //by default timeout is of 30 sec 
   // only if we want to overwrite the default timeout we need to defined it otherwise no need
   // Timeout of 40 sec to wait for perticular element
