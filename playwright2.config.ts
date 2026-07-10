@@ -7,6 +7,7 @@ export default defineConfig({
   //const  config=({
   testDir: './tests',
   //retries: 1,
+  workers:3,// to run the test File in Parallel Mode
   //by default timeout is of 30 sec 
   // only if we want to overwrite the default timeout we need to defined it otherwise no need
   // Timeout of 40 sec to wait for perticular element
