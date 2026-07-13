@@ -1,0 +1,212 @@
+# Instructions
+
+- Following Playwright test failed.
+- Explain why, be concise, respect Playwright best practices.
+- Provide a snippet of code with the fix, if possible.
+
+# Test info
+
+- Name: DashboardPage.spec.js >> TC to Add the Product to Cart and place the Order
+- Location: tests\DashboardPage.spec.js:12:5
+
+# Error details
+
+```
+Test timeout of 40000ms exceeded.
+```
+
+```
+Error: locator.waitFor: Test timeout of 40000ms exceeded.
+Call log:
+  - waiting for locator('div li').first() to be visible
+
+```
+
+# Page snapshot
+
+```yaml
+- generic [active] [ref=e1]:
+  - generic [ref=e3]:
+    - navigation [ref=e5]:
+      - generic [ref=e7]:
+        - link "Automation Automation Practice":
+          - /url: ""
+          - generic [ref=e8] [cursor=pointer]:
+            - heading "Automation" [level=3] [ref=e9]
+            - paragraph [ref=e10]: Automation Practice
+      - text: 
+      - link "Get Shortlisted by Recruiters - Take QA Skill Assessments on TechSmartHire" [ref=e11] [cursor=pointer]:
+        - /url: https://techsmarthire.com/
+      - list [ref=e12]:
+        - listitem [ref=e13] [cursor=pointer]:
+          - button " HOME" [ref=e14]:
+            - generic [ref=e15]: 
+            - text: HOME
+        - listitem
+        - listitem [ref=e16] [cursor=pointer]:
+          - button " ORDERS" [ref=e17]:
+            - generic [ref=e18]: 
+            - text: ORDERS
+        - listitem [ref=e19] [cursor=pointer]:
+          - button " Cart" [ref=e20]:
+            - generic [ref=e21]: 
+            - text: Cart
+        - listitem [ref=e22] [cursor=pointer]:
+          - button "Sign Out" [ref=e23]:
+            - generic [ref=e24]: 
+            - text: Sign Out
+    - generic [ref=e26]:
+      - heading "My Cart" [level=1] [ref=e27]
+      - button "Continue Shopping❯" [ref=e28] [cursor=pointer]
+  - alert "Product Added To Cart" [ref=e31]
+```
+
+# Test source
+
+```ts
+  1   | import {expect, test} from "@playwright/test"
+  2   | //import { LoginPage } from "../pages/LoginPage";
+  3   | //import {DashboardPage} from "../pages/DashboardPage";
+  4   | import {POManager} from "../pages/POManager";
+  5   | 
+  6   | // ../pages/LoginPage here we use .. because LoginPage outside of LoginPage.spec.js
+  7   | 
+  8   | 
+  9   | /* 
+  10  | Program : This Program just cover the POM till Dashboard page and Complete Flow till Placing Order and verify the Order ID in OrdersHistory Page is Covered Under  i.e. OrderHistoryPage.spec.js */
+  11  | 
+  12  | test("TC to Add the Product to Cart and place the Order", async({page})=>{
+  13  | 
+  14  |     const productName= "ZARA COAT 3"
+  15  |     const UserName = "vvbulbule@gmail.com"
+  16  |     const Password= "V12bulbule@"
+  17  |    /* In Below Line i.e  const loginPage = new LoginPage(page) we Created the object of LoginPage 
+  18  |    as we need to access the methods but if we have to get the methods from multiple page in our Test case  we have to create object of every page
+  19  |      so to avoid this we can create One POManger File with all the Objects of all Classes of our Application 
+  20  |      so just import that POManger file  & call the methods of all The PO Classes by Creating Object of single file POManager In Test Case*/
+  21  |     //const loginPage = new LoginPage(page) ;
+  22  |     //await  loginPage.goTo()
+  23  |     //await loginPage.ValidLogin(UserName,Password)
+  24  | 
+  25  |     const poManger = new POManager(page)
+  26  |     const loginPage = poManger.getLoginPage();
+  27  |     await loginPage.goTo()
+  28  |     await loginPage.ValidLogin(UserName,Password)
+  29  | 
+  30  |     /* In Below Line we Created the object of DashboardPage as we need to access the methods 
+  31  |     if we have to get the methods from multiple page we have to create object of every page
+  32  |      so to avoid this we can create all the Ojects of all Class of our Application in POManager Class File 
+  33  |      so just import that POManger file to call the methods of all The PO Classes*/
+  34  |     //const dashboardPage = new DashboardPage(page);
+  35  |     const dashboardPage = poManger.getDashboardPage()
+  36  |     await dashboardPage.searchProductAndAddToCart(productName)
+  37  |     await dashboardPage.navigateToCartPage()
+  38  | 
+  39  |    
+  40  | 
+  41  |         
+  42  |         //Verify that Product added to Cart Page will displayed 
+  43  |         // isVisible method will not wait automatically in playwright so we have wait for atleast first product is loaded in cart page
+> 44  |         await page.locator("div li").first().waitFor()
+      |                                              ^ Error: locator.waitFor: Test timeout of 40000ms exceeded.
+  45  |         const bool=await page.locator("h3:has-text('ZARA COAT 3')").isVisible()// if present it will return true
+  46  |         expect (bool).toBeTruthy()// verify that value is True
+  47  | 
+  48  |         // Click on Checkout Button
+  49  |         await page.locator("button:has-text('Checkout')").click()
+  50  |         
+  51  |         // On the Payment Page
+  52  |         /* Country it the Auto Suggestion Dropdown
+  53  |         Not having select tag and Here if we use the fill method then suggestion will not be displayed  
+  54  |         So we have to use the pressSequentially methods to type the letters one by one then auto sugession we be displayed for the dropdown 
+  55  | 
+  56  |         */
+  57  |         //Inspect Auto Suggesion Box and enter partial test "Ind"  in the Auto Suggesion Box
+  58  |         await page.locator("[placeholder='Select Country']").pressSequentially("Ind")
+  59  | 
+  60  |     
+  61  |         //Inspect All the Suggestion comes below dropdown 
+  62  |         const dropdown =  page.locator(".ta-results")
+  63  | 
+  64  |         //Wait for Options to Open in Auto Suggesions dropdown
+  65  |         await dropdown.waitFor()
+  66  | 
+  67  |         // Inspect single elemet from the Auto Suggesion
+  68  |         // Here we use Chaining of the locator
+  69  |         const optionsCount= await dropdown.locator("button").count()
+  70  | 
+  71  |         //Iterate foe every value from auto suggesion and Match with Expected Value
+  72  |         for (let i=0;i<optionsCount;i++){
+  73  |             const text= await dropdown.locator("button").nth(i).textContent()
+  74  |             if(text===" India"){
+  75  |                 await dropdown.locator("button").nth(i).click()
+  76  |                 console.log(text+" is selected") // India is selected
+  77  |                 break
+  78  |             }
+  79  | 
+  80  |         }
+  81  |        
+  82  |         // Verify that email comes automatically on Payment page in email textbox is same as loggedin user's email ID
+  83  |         // Here we can use the toHaveText() it will match the exact text 
+  84  |         const email= "vvbulbule@gmail.com";
+  85  |         await expect(page.locator("div label")).toContainText(email)
+  86  | 
+  87  |         //Enter the CVV 
+  88  |         await page.locator(".input.txt").nth(1).fill("123")
+  89  | 
+  90  |         //Enter the Name on Card 
+  91  |         await page.locator(".input.txt").nth(2).fill("Vikrant Bulbule")
+  92  | 
+  93  |         
+  94  | 
+  95  |         // Click on PlaceOrder btn
+  96  |         await page.locator(".btnn.action__submit.ng-star-inserted").click()
+  97  | 
+  98  |         // Verify "Thankyou for the order." Message after Placing the Order
+  99  |         await expect(page.locator(".hero-primary")).toHaveText(" Thankyou for the order. ")
+  100 | 
+  101 |         // Ftech the order id on Order Page 
+  102 |         const orderID= await page.locator("label.ng-star-inserted").textContent()
+  103 |         console.log(orderID)
+  104 | 
+  105 |   
+  106 | 
+  107 |         // Click on Order History Page Link
+  108 |         await page.locator("[routerlink='/dashboard/myorders']").nth(1).click()
+  109 | 
+  110 |         // Handling Orders Table
+  111 |         // on the Orders list page latest order comes at the last 
+  112 |         //tbody tr locator will give the all the rows 
+  113 |         const ordersrows=  page.locator("tbody tr")
+  114 |         await ordersrows.first().waitFor()
+  115 | 
+  116 |         //iterate all the rows and find the "Required orderID" to View the Order Details
+  117 |         
+  118 |         for (let i=0;i< await ordersrows.count();i++){
+  119 |             // Here we applied chaining for the locator
+  120 |             const rowOrderID=await ordersrows.nth(i).locator("th").textContent()
+  121 |             
+  122 | 
+  123 | 
+  124 |             // if loop to match the Expected and Actual OrderID
+  125 |            if (orderID?.includes(rowOrderID)) {
+  126 |                 console.log("Order ID matched")
+  127 |                 // Now for the match orderid click on View Button to View Order Details
+  128 |                 await ordersrows.nth(i).locator("button").first().click()
+  129 |                 
+  130 |                 break
+  131 |             }
+  132 |         }
+  133 | 
+  134 |         //Verify that same order id is opened on order Summary Page verify using orderid
+  135 |        
+  136 |         //Order is contains blank Space i.e | 6a0d9bbd17ee3e78ba8b178a | so below line will fail so in normal appplication it should be pass
+  137 |         //await expect(page.locator(".col-text")).toContainText(orderID!); 
+  138 | 
+  139 |          /*
+  140 |         Why ! is used
+  141 | 
+  142 |     ! = Non-null assertion operator
+  143 | 
+  144 |     It tells TypeScript:
+```

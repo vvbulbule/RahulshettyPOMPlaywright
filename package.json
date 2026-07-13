@@ -3,13 +3,18 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "scripts": {},
+  "scripts": {
+    "Regression" :"npx playwright test",
+    "Smoke" : "npx playwright test --grep @Smoke",
+    "NewConfigFile" : "npx playwright test OrderHistoryPageParameterization.spec.js --config  playwright2.config.ts"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "type": "commonjs",
   "devDependencies": {
-    "@playwright/test": "^1.57.0",
-    "@types/node": "^25.0.3"
+    "@playwright/test": "^1.61.1",
+    "@types/node": "^25.0.3",
+    "allure-playwright": "^3.10.2"
   }
 }
