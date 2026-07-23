@@ -6,8 +6,7 @@
   "scripts": {
     "Regression" :"npx playwright test",
     "Smoke" : "npx playwright test --grep @Smoke",
-    "NewConfigFile" : "npx playwright test OrderHistoryPageParameterization.spec.js --config  playwright2.config.ts",
-    "AllureReport": "npx playwright test --reporter=line,allure-playwright"
+    "NewConfigFile" : "npx playwright test OrderHistoryPageParameterization.spec.js --config  playwright2.config.ts"
   },
   "keywords": [],
   "author": "",

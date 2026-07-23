@@ -16,11 +16,7 @@ export default defineConfig({
   timeout: 5000,
   },
  // Once all the test run below line give the report in html
-  reporter: [
-    ['list'], // Console output
-    ['html', { open: 'never' }], // Playwright HTML Report
-    ['allure-playwright'] // Allure Report
-  ],
+ reporter:'html',
   
   use: {
    
