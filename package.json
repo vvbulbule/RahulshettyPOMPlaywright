@@ -4,9 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "Regression" :"npx playwright test",
-    "Smoke" : "npx playwright test --grep @Smoke",
-    "NewConfigFile" : "npx playwright test OrderHistoryPageParameterization.spec.js --config  playwright2.config.ts"
+    "Regression": "npx playwright test",
+    "Smoke": "npx playwright test --grep @Smoke",
+    "NewConfigFile": "npx playwright test OrderHistoryPageParameterization.spec.js --config  playwright2.config.ts"
   },
   "keywords": [],
   "author": "",
@@ -16,5 +16,8 @@
     "@playwright/test": "^1.61.1",
     "@types/node": "^25.0.3",
     "allure-playwright": "^3.10.2"
+  },
+  "dependencies": {
+    "@cucumber/cucumber": "^13.2.0"
   }
 }
